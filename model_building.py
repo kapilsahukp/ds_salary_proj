@@ -110,9 +110,18 @@ mean_absolute_error(y_test, tpred_rf)    #11.498633748801534   Performed best
 #We can try to tune it further by combining two best performing models and see if it helps:
 mean_absolute_error(y_test, (tpred_lm+tpred_rf)/2)    #14.736516615746968    not better than RandomForest
 
+import pickle
+pickl = {'model':gs.best_estimator_}
+pickle.dump(pickl, open('model_file'+'.p',"wb"))
 
+file_name = 'model_file.p'
+with open(file_name, 'rb') as pickled:
+    data = pickle.load(pickled)
+    model = data['model']
+    
+model.predict(X_test.iloc[1,:].values.reshape(1,-1))
 
-
+list(X_test.iloc[1,:].values)
 
 
 
